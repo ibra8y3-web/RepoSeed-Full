@@ -1,0 +1,11 @@
+
+name: RepoSeed Auto-Update
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: RepoSeed Analysis
+        run: echo "Project RepoSeed-Full is boosted by RepoSeed"
+    

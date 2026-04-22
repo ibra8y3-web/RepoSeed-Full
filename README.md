@@ -1,3 +1,5 @@
+
+[![RepoSeed](https://img.shields.io/badge/RepoSeed-boosted-blue)](https://github.com/ibra8y3-web/RepoSeed-Full.git)
 # RepoSeed 🌱
 ### أداة النشر الذكي لمستودعات GitHub - بدون إعلانات
 
