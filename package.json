@@ -1,0 +1,1 @@
+{"name":"reposeed","version":"1.0.0","description":"أداة نشر ذكي","type":"module","bin":{"reposeed":"dist/index.js"},"scripts":{"build":"tsc","dev":"ts-node src/index.ts"},"dependencies":{"@octokit/rest":"^20.0.2","commander":"^12.0.0","dotenv":"^16.4.5","chalk":"^5.3.0","ora":"^7.0.1"},"devDependencies":{"typescript":"^5.4.5","ts-node":"^10.9.2"}}

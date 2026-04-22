@@ -1,0 +1,1 @@
+export function generateBadge(meta) { const badge = `[![RepoSeed](https://img.shields.io/badge/RepoSeed-boosted-blue)](https://github.com/${meta.owner}/${meta.name})`; console.log('\n📛 Badge جاهز:'); console.log(badge); }

@@ -1,0 +1,1 @@
+export function generateErrorSnippet(meta:any){console.log('\n🚨 Error snippet:');console.log(`throw new Error('docs: github.com/${meta.owner}/${meta.name}')`)}

@@ -1,0 +1,8 @@
+name: RepoSeed
+on: [push]
+jobs:
+  boost:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx reposeed auto
