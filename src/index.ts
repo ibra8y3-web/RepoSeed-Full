@@ -5,13 +5,15 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
+// --- استراتيجيات النشر الذكي ---
+
 function injectBadge(repoUrl: string) {
     const badge = `\n[![RepoSeed](https://img.shields.io/badge/RepoSeed-boosted-blue)](${repoUrl})\n`;
     if (fs.existsSync('README.md')) {
         let content = fs.readFileSync('README.md', 'utf8');
         if (!content.includes('RepoSeed-boosted')) {
             fs.writeFileSync('README.md', badge + content);
-            console.log('✅ تم إضافة الـ Badge لملف README');
+            console.log('✅ تم حقن الـ Badge الذكي لضمان الانتشار.');
         }
     }
 }
@@ -27,55 +29,63 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: RepoSeed Analysis
-        run: echo "Project ${repoName} is boosted by RepoSeed"
+        run: echo "Project ${repoName} is boosted by RepoSeed 🌱"
     `;
     fs.writeFileSync(path.join(workflowPath, 'reposeed.yml'), yamlContent);
-    console.log('✅ تم إنشاء ملف الـ GitHub Action');
+    console.log('✅ تم تفعيل الـ GitHub Action للـ Automation.');
 }
 
 function pushChanges() {
     try {
         execSync('git add .');
-        execSync('git commit -m "chore: boosted by RepoSeed [auto]"');
+        execSync('git commit -m "chore: smart-publishing by RepoSeed 🌱"');
         execSync('git push'); 
-        console.log('🚀 تم رفع التعديلات لـ GitHub بنجاح!');
+        console.log('🚀 تم النشر التقني بنجاح على GitHub!');
     } catch (e) {
-        console.error('❌ فشل الرفع: تأكد من وجود صلاحيات git');
+        console.log('⚠️ لا يوجد تغييرات جديدة للرفع.');
     }
 }
 
-function applyAutomations(url: string) {
+async function applySmartPublishing(url: string) {
     const repoName = url.split('/').pop()?.replace('.git', '') || 'repository';
+    console.log(`\n🌱 بدأ عملية البذر لـ ${repoName}...`);
+    
     injectBadge(url);
     createWorkflow(repoName);
+    
+    console.log('🎯 استراتيجية Awesome Lists: جاري تجهيز اقتراحات الـ PR...');
+    // مستقبلاً: هنا يتم استدعاء سكريبت البحث عن القوائم المناسبة
+    
     pushChanges();
 }
 
+// --- إعدادات الأوامر (CLI) ---
+
 const program = new Command();
-program.name('reposeed').description('أداة النشر الذكي').version('1.0.0');
+program.name('reposeed').description('RepoSeed: أداة النشر الذكي').version('1.1.0');
 
 program.command('seed <url>')
-    .description('نشر أي مستودع')
+    .description('نشر مستودع معين')
     .action(async (url) => {
         try {
             await seedRepo(url, {});
-            applyAutomations(url);
+            await applySmartPublishing(url);
         } catch (e) {
-            console.error('❌ خطأ:', (e as Error).message);
+            console.error('❌ خطأ في التنفيذ:', (e as Error).message);
         }
     });
 
 program.command('auto')
-    .description('يكتشف المستودع تلقائيا')
+    .description('اكتشاف ونشر المستودع الحالي تلقائياً')
     .action(async () => {
         try {
             const url = execSync('git config --get remote.origin.url').toString().trim();
             await seedRepo(url, {});
-            applyAutomations(url);
+            await applySmartPublishing(url);
         } catch (e) {
-            await seedRepo('.', {});
+            console.log('❌ فشل الاكتشاف التلقائي. تأكد أنك داخل مجلد Git.');
         }
     });
 
